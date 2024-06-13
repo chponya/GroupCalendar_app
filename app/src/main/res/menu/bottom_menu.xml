@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/event"
+        android:title="События"
+        android:icon="@drawable/baseline_event_note_24"/>
+
+    <item
+        android:id="@+id/home"
+        android:title="Дом"
+        android:icon="@drawable/baseline_home_24"
+        />
+
+    <item
+        android:title=""
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/notifications"
+        android:title="Уведомления"
+        android:icon="@drawable/baseline_notifications_24" />
+    <item
+        android:id="@+id/profile"
+        android:title="Профиль"
+        android:icon="@drawable/baseline_person_24" />
+
+</menu>
