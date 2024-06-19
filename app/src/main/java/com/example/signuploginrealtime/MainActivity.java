@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,19 +18,17 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 //import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    FloatingActionButton fab;
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
 
@@ -39,10 +38,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button buttonToSecond = findViewById(R.id.button_to_cal);
+        buttonToSecond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CalendarTample.class);
+                startActivity(intent);
+            }
+        });
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        fab = findViewById(R.id.fab);
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_logout) {
+                // Выход из аккаунта - переход на экран регистрации
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish(); // Закрыть текущую активность, чтобы пользователь не мог вернуться назад
+                return true;
+            }
+            return false;
+        });
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -51,37 +71,33 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new CalendarFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        replaceFragment(new HomeFragment());
+        replaceFragment(new CalendarFragment());
 
         bottomNavigationView.setBackground(null);
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.event) {
-                replaceFragment(new EventFragment());
-            } else if (item.getItemId() == R.id.home) {
-                replaceFragment(new HomeFragment());
-            } else if (item.getItemId() == R.id.notifications) {
-                replaceFragment(new NotificationsFragment());
-            } else if (item.getItemId() == R.id.profile) {
-                replaceFragment(new ProfileFragment());
+            if (item.getItemId() == R.id.calendars) {
+                replaceFragment(new CalendarFragment());
+            } else if (item.getItemId() == R.id.events) {
+                replaceFragment(new EventsFragment());
+            } else if (item.getItemId() == R.id.fab) {
+                replaceFragment(new CreateFragment());
+            } else if (item.getItemId() == R.id.surveys) {
+                replaceFragment(new SurveysFragment());
+            } else if (item.getItemId() == R.id.locations) {
+                replaceFragment(new LocationsFragment());
             }
 
             return true;
         });
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomDialog();
-            }
-        });
     }
 
-    private  void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -92,14 +108,13 @@ public class MainActivity extends AppCompatActivity {
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottomsheetlayout);
+        dialog.setContentView(R.layout.create_layout);
 
-        LinearLayout videoLayout = dialog.findViewById(R.id.layoutVideo);
-        LinearLayout shortsLayout = dialog.findViewById(R.id.layoutShorts);
-        LinearLayout liveLayout = dialog.findViewById(R.id.layoutLive);
-        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+        LinearLayout eventLayout = dialog.findViewById(R.id.layoutEvent);
+        LinearLayout templateLayout = dialog.findViewById(R.id.layoutTemplate);
+        LinearLayout locationLayout = dialog.findViewById(R.id.layoutLocation);
 
-        videoLayout.setOnClickListener(new View.OnClickListener() {
+        eventLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -109,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        shortsLayout.setOnClickListener(new View.OnClickListener() {
+        templateLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -119,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        liveLayout.setOnClickListener(new View.OnClickListener() {
+        locationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -129,12 +144,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+
 
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

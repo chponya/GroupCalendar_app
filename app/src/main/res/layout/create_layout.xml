@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:layout_marginTop="55dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/dialogbg">
+    android:layout_height="match_parent">
+    <!--    android:background="@drawable/dialogbg"-->
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_remove_24"
-        android:layout_gravity="center|top"
-        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,19 +24,10 @@
             android:layout_marginTop="5dp"
             android:textSize="25sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_clear_24"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="8dp"
-            android:id="@+id/cancelButton"/>
-
     </LinearLayout>
 
-
     <LinearLayout
-        android:id="@+id/layoutVideo"
+        android:id="@+id/layoutCalendar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +37,30 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_event_24"/>
+            android:src="@drawable/calendar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Календарь"
+            android:textColor="@color/lavender"
+            android:layout_marginStart="30dp"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutEvent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/event"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +73,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutShorts"
+        android:id="@+id/layoutTemplate"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +83,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_chart_24"/>
+            android:src="@drawable/survey"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,7 +96,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutLive"
+        android:id="@+id/layoutLocation"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
